@@ -1,58 +1,79 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-    fname: {
-        type: String,
-        required: true,
+// Define schema for the enquiry form data
+const enquirySchema = new mongoose.Schema({
+  creditSocietyName: { type: String, required: true },
+  contactNo: { type: String, required: true },
+  contactPerson: { type: String, required: true },
+  noOfBranch: { type: String, required: true },
+  demoDate: { type: Date, required: true },
+  demoTime: { type: String, required: true },
+  existingSoftware: { type: String, required: true },
+  softwareVendor: { type: String },
+  tentativePersons: { type: String, required: true },
+  signatory: { type: String, required: true },
+  categories: {
+    chairmen: { type: Boolean, default: false },
+    director: { type: Boolean, default: false },
+    gm: { type: Boolean, default: false },
+    manager: { type: Boolean, default: false },
+    other: { type: Boolean, default: false }
+  },
+  complianceModules: {
+    cbs: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    Lname: {
-        type: String,
-        required: true,
+    documentVerification: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    Address: {
-        type: String,
-        required: true,
+    digitalBoardMeeting: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    PhoneNo: {
-        type: String,
-        required: true,
+    eAffidavit: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
+    customerRepository: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    password: {
-        type: String,
-        required: true,
+    cibil: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    City: {
-        type: String,
-        required: true,
+    hrms: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
+    }
+  },
+  interestedProducts: {
+    mobileBanking: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    date: {
-        type: Date,
-        default: Date.now, // Use `Date.now` without `Date.Now` (the latter is incorrect)
+    utilityPayments: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    clientId: {
-        type: String,
-        required: false, // You can make it optional depending on the use case
+    eStatement: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    OTP: {
-        type: Number,
-        required: false, // If you want to store OTP temporarily, this is an optional field
+    MissCallAlerts: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
     },
-    mobile_number: {
-        type: String,
-        required: false, // Same for mobile number if you want to store it
-    },
-    aadharNumber: {
-        type: Number,
-        required: false, // Optional Aadhar number field
-        unique: true, // Ensures Aadhar is unique for each user
-    },
+    KioskPassbook: {
+      use: { type: Boolean, default: false },
+      time: { type: String }
+    }
+  }
 });
 
-const userSchema = mongoose.model("user", UserSchema);
-export default userSchema;
+// Create the model
+const Enquiry = mongoose.model('Enquiry', enquirySchema);
+
+module.exports = Enquiry;

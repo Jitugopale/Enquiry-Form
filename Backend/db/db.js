@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectToMongo = async () => {
   await mongoose
-    .connect("mongodb+srv://mongodb:mongodb@cluster0.rlfty.mongodb.net/mongodb?retryWrites=true&w=majority&appName=Cluster0")
+    .connect("mongodb+srv://mongodb:mongodb@mycluster.8esgp.mongodb.net/mongodb?retryWrites=true&w=majority&appName=MyCluster")
     .then(() => console.log("DB Connected"))
     .catch((err) => console.error("DB Connection Error: ", err));
 };

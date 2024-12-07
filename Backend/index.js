@@ -1,48 +1,21 @@
-const express = require("express");
-const nodemailer = require("nodemailer");
-const cors = require("cors");
+// app.js
+import express from 'express';
+import cors from 'cors';
+import authRoutes from './routes/authRoutes.js';  // Make sure to add .js extension
+import connectDB from './db/db.js';  // Same for db.js
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+// Connect to the database
+connectDB();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
-// Endpoint to handle form submission
-app.post("/api/enquiry", async (req, res) => {
-  const { creditSocietyName, contactNo, contactPerson, demoDate, demoTime, categories, signatory } = req.body;
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "your_email@gmail.com",
-      pass: "your_password", // Use environment variables for security
-    },
-  });
-
-  const mailOptions = {
-    from: "your_email@gmail.com",
-    to: "recipient_email@gmail.com",
-    subject: "New Enquiry Submission",
-    text: `Enquiry Details:\n
-           Credit Society Name: ${creditSocietyName}\n
-           Contact No: ${contactNo}\n
-           Contact Person: ${contactPerson}\n
-           Demo Date: ${demoDate}\n
-           Demo Time: ${demoTime}\n
-           Categories: ${JSON.stringify(categories)}\n
-           Signatory: ${signatory}`,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    res.status(200).send({ message: "Form submitted successfully!" });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).send({ message: "Failed to submit the form." });
-  }
-});
+// Use the routes from authRoutes.js
+app.use("/api", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

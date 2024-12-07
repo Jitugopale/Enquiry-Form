@@ -80,12 +80,12 @@ const EnquiryForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/send-email', formData, {
+            const response = await axios.post('http://localhost:5000/api/enquiry', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             });
-
+        
             if (response.status === 200) {
                 alert('Form submitted successfully');
             } else {
@@ -95,6 +95,7 @@ const EnquiryForm = () => {
             console.error('Error submitting form data:', error);
             alert('Error submitting the form');
         }
+        
     };
 
     return (
